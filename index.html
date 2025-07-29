@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jaky Coja ABS Circuit</title>
+    
+    <!-- Google AdSense Script -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1502869963249938" crossorigin="anonymous"></script>
+    
     <style>
         * {
             margin: 0;
@@ -16,6 +20,7 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 20px;
@@ -30,6 +35,79 @@
             width: 100%;
             text-align: center;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        /* Banner Ad Styles */
+        .banner-ad-container {
+            width: 100%;
+            max-width: 728px;
+            margin: 20px auto 0;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .banner-ad {
+            width: 100%;
+            height: 90px;
+            display: block;
+        }
+
+        /* Interstitial Ad Overlay */
+        .interstitial-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .interstitial-content {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .close-ad-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: #ff3b30;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            display: none;
+        }
+
+        .close-ad-btn:hover {
+            background: #d70015;
+        }
+
+        .ad-countdown {
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
         }
 
         .title {
@@ -240,6 +318,17 @@
             font-size: 48px;
             margin-bottom: 20px;
         }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .banner-ad-container {
+                max-width: 320px;
+            }
+            
+            .banner-ad {
+                height: 50px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -293,11 +382,42 @@
 
         <!-- Completion Screen -->
         <div class="completion-screen" id="completionScreen">
-            <div class="celebration">ðŸŽ‰</div>
+            <div class="celebration">🎉</div>
             <div class="completion-message">Congratulazioni!</div>
             <div class="completion-message">Circuito Completato!</div>
             <div class="completion-time" id="finalTime">Tempo totale: 0:00</div>
             <button class="restart-btn" id="restartBtn">Ricomincia</button>
+        </div>
+    </div>
+
+    <!-- Banner Ad Container -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1502869963249938"
+     crossorigin="anonymous"></script>
+	<div class="banner-ad-container">
+        <!-- Google AdSense Banner Ad -->
+        <ins class="adsbygoogle banner-ad"
+             style="display:block"
+             data-ad-client="ca-pub-1502869963249938"
+             data-ad-slot="5604773715"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+    </div>
+	<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+	</script>
+	
+
+    <!-- Interstitial Ad Overlay -->
+    <div class="interstitial-overlay" id="interstitialOverlay">
+        <div class="interstitial-content">
+            <div class="ad-countdown" id="adCountdown">Pubblicità : 5s</div>
+            <button class="close-ad-btn" id="closeAdBtn">x—</button>
+            <!-- Google AdSense Interstitial Ad -->
+            <ins class="adsbygoogle"
+                 style="display:block; width:300px; height:250px;"
+                 data-ad-client="ca-pub-1502869963249938"
+                 data-ad-slot="8095205683"
+                 data-ad-format="auto"></ins>
         </div>
     </div>
 
@@ -327,10 +447,12 @@
                 this.isRunning = false;
                 this.totalTimer = null;
                 this.countdownTimer = null;
+                this.adCountdownTimer = null;
 
                 this.initializeElements();
                 this.setupEventListeners();
                 this.createAudioContext();
+                this.initializeAds();
             }
 
             initializeElements() {
@@ -347,6 +469,9 @@
                 this.exerciseCounterDisplay = document.getElementById('exerciseCounter');
                 this.progressFill = document.getElementById('progressFill');
                 this.finalTimeDisplay = document.getElementById('finalTime');
+                this.interstitialOverlay = document.getElementById('interstitialOverlay');
+                this.closeAdBtn = document.getElementById('closeAdBtn');
+                this.adCountdownDisplay = document.getElementById('adCountdown');
             }
 
             setupEventListeners() {
@@ -364,6 +489,16 @@
                 this.pauseBtn.addEventListener('click', () => this.togglePause());
                 this.stopBtn.addEventListener('click', () => this.stopWorkout());
                 this.restartBtn.addEventListener('click', () => this.restart());
+                this.closeAdBtn.addEventListener('click', () => this.closeInterstitialAd());
+            }
+
+            initializeAds() {
+                // Initialize AdSense ads
+                try {
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                } catch (e) {
+                    console.log('AdSense not loaded yet');
+                }
             }
 
             createAudioContext() {
@@ -480,6 +615,45 @@
                 const minutes = Math.floor(this.totalSeconds / 60);
                 const seconds = this.totalSeconds % 60;
                 this.finalTimeDisplay.textContent = `Tempo totale: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+                // Show interstitial ad after 5 seconds
+                setTimeout(() => {
+                    this.showInterstitialAd();
+                }, 5000);
+            }
+
+            showInterstitialAd() {
+                this.interstitialOverlay.style.display = 'flex';
+                
+                // Initialize interstitial ad
+                try {
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                } catch (e) {
+                    console.log('AdSense interstitial not loaded');
+                }
+
+                // Start countdown for close button
+                let adCountdown = 5;
+                this.adCountdownDisplay.textContent = `Pubblicità : ${adCountdown}s`;
+                
+                this.adCountdownTimer = setInterval(() => {
+                    adCountdown--;
+                    this.adCountdownDisplay.textContent = `Pubblicità : ${adCountdown}s`;
+                    
+                    if (adCountdown <= 0) {
+                        clearInterval(this.adCountdownTimer);
+                        this.closeAdBtn.style.display = 'block';
+                        this.adCountdownDisplay.textContent = 'Puoi chiudere la Pubblicità ';
+                    }
+                }, 1000);
+            }
+
+            closeInterstitialAd() {
+                this.interstitialOverlay.style.display = 'none';
+                this.closeAdBtn.style.display = 'none';
+                if (this.adCountdownTimer) {
+                    clearInterval(this.adCountdownTimer);
+                }
             }
 
             restart() {
@@ -497,12 +671,25 @@
 
                 if (this.totalTimer) clearInterval(this.totalTimer);
                 if (this.countdownTimer) clearInterval(this.countdownTimer);
+                if (this.adCountdownTimer) clearInterval(this.adCountdownTimer);
+                
+                // Close any open ads
+                this.closeInterstitialAd();
             }
         }
 
         // Initialize the app when the page loads
         document.addEventListener('DOMContentLoaded', () => {
             new ABSCircuitApp();
+        });
+
+        // Initialize AdSense when the page loads
+        window.addEventListener('load', () => {
+            try {
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            } catch (e) {
+                console.log('AdSense initialization failed');
+            }
         });
     </script>
 </body>
