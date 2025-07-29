@@ -6,7 +6,7 @@
     <title>Jaky Coja ABS Circuit</title>
     
     <!-- Google AdSense Script -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1799132867225755" crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1502869963249938" crossorigin="anonymous"></script>
     
     <style>
         * {
@@ -349,7 +349,7 @@
                 </div>
             </div>
 
-            <button class="play-button" id="startBtn" disabled>▶</button>
+            <button class="play-button" id="startBtn" disabled>â–¶</button>
         </div>
 
         <!-- Workout Screen -->
@@ -382,7 +382,7 @@
 
         <!-- Completion Screen -->
         <div class="completion-screen" id="completionScreen">
-            <div class="celebration">🎉</div>
+            <div class="celebration">ðŸŽ‰</div>
             <div class="completion-message">Congratulazioni!</div>
             <div class="completion-message">Circuito Completato!</div>
             <div class="completion-time" id="finalTime">Tempo totale: 0:00</div>
@@ -391,26 +391,32 @@
     </div>
 
     <!-- Banner Ad Container -->
-    <div class="banner-ad-container">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1502869963249938"
+     crossorigin="anonymous"></script>
+	<div class="banner-ad-container">
         <!-- Google AdSense Banner Ad -->
         <ins class="adsbygoogle banner-ad"
              style="display:block"
-             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-             data-ad-slot="XXXXXXXXXX"
+             data-ad-client="ca-pub-1502869963249938"
+             data-ad-slot="5604773715"
              data-ad-format="auto"
              data-full-width-responsive="true"></ins>
     </div>
+	<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+	</script>
+	
 
     <!-- Interstitial Ad Overlay -->
     <div class="interstitial-overlay" id="interstitialOverlay">
         <div class="interstitial-content">
-            <div class="ad-countdown" id="adCountdown">Pubblicità: 5s</div>
-            <button class="close-ad-btn" id="closeAdBtn">×</button>
+            <div class="ad-countdown" id="adCountdown">PubblicitÃ : 5s</div>
+            <button class="close-ad-btn" id="closeAdBtn">Ã—</button>
             <!-- Google AdSense Interstitial Ad -->
             <ins class="adsbygoogle"
                  style="display:block; width:300px; height:250px;"
-                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-                 data-ad-slot="YYYYYYYYYY"
+                 data-ad-client="ca-pub-1502869963249938"
+                 data-ad-slot="8095205683"
                  data-ad-format="auto"></ins>
         </div>
     </div>
@@ -628,16 +634,16 @@
 
                 // Start countdown for close button
                 let adCountdown = 5;
-                this.adCountdownDisplay.textContent = `Pubblicità: ${adCountdown}s`;
+                this.adCountdownDisplay.textContent = `PubblicitÃ : ${adCountdown}s`;
                 
                 this.adCountdownTimer = setInterval(() => {
                     adCountdown--;
-                    this.adCountdownDisplay.textContent = `Pubblicità: ${adCountdown}s`;
+                    this.adCountdownDisplay.textContent = `PubblicitÃ : ${adCountdown}s`;
                     
                     if (adCountdown <= 0) {
                         clearInterval(this.adCountdownTimer);
                         this.closeAdBtn.style.display = 'block';
-                        this.adCountdownDisplay.textContent = 'Puoi chiudere la pubblicità';
+                        this.adCountdownDisplay.textContent = 'Puoi chiudere la pubblicitÃ ';
                     }
                 }, 1000);
             }
