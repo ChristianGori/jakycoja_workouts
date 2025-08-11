@@ -1,696 +1,160 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jaky Coja ABS Circuit</title>
-    
-    <!-- Google AdSense Script -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1502869963249938" crossorigin="anonymous"></script>
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .container {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            padding: 40px;
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
-
-        /* Banner Ad Styles */
-        .banner-ad-container {
-            width: 100%;
-            max-width: 728px;
-            margin: 20px auto 0;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .banner-ad {
-            width: 100%;
-            height: 90px;
-            display: block;
-        }
-
-        /* Interstitial Ad Overlay */
-        .interstitial-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 9999;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-
-        .interstitial-content {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            max-width: 90%;
-            max-height: 90%;
-            position: relative;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .close-ad-btn {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            background: #ff3b30;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            font-size: 16px;
-            cursor: pointer;
-            display: none;
-        }
-
-        .close-ad-btn:hover {
-            background: #d70015;
-        }
-
-        .ad-countdown {
-            position: absolute;
-            top: 10px;
-            left: 15px;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 12px;
-        }
-
-        .title {
-            font-size: 28px;
-            font-weight: 700;
-            color: #1d1d1f;
-            margin-bottom: 30px;
-        }
-
-        .setup-screen {
-            display: block;
-        }
-
-        .workout-screen {
-            display: none;
-        }
-
-        .completion-screen {
-            display: none;
-        }
-
-        .interval-selector {
-            margin-bottom: 30px;
-        }
-
-        .interval-label {
-            font-size: 16px;
-            color: #6e6e73;
-            margin-bottom: 15px;
-        }
-
-        .interval-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-        }
-
-        .interval-btn {
-            background: #f2f2f7;
-            border: 2px solid transparent;
-            border-radius: 12px;
-            padding: 12px 20px;
-            font-size: 16px;
-            font-weight: 600;
-            color: #1d1d1f;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .interval-btn:hover {
-            background: #e5e5ea;
-        }
-
-        .interval-btn.selected {
-            background: #007aff;
-            color: white;
-            border-color: #007aff;
-        }
-
-        .play-button {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: #007aff;
-            border: none;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            margin: 20px auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .play-button:hover {
-            background: #0056b3;
-            transform: scale(1.05);
-        }
-
-        .play-button:disabled {
-            background: #c7c7cc;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .timers {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 30px;
-        }
-
-        .timer {
-            text-align: center;
-        }
-
-        .timer-label {
-            font-size: 14px;
-            color: #6e6e73;
-            margin-bottom: 5px;
-        }
-
-        .timer-value {
-            font-size: 32px;
-            font-weight: 700;
-            color: #1d1d1f;
-        }
-
-        .current-exercise {
-            background: #f2f2f7;
-            border-radius: 16px;
-            padding: 30px 20px;
-            margin-bottom: 20px;
-        }
-
-        .exercise-name {
-            font-size: 24px;
-            font-weight: 700;
-            color: #1d1d1f;
-            margin-bottom: 10px;
-        }
-
-        .exercise-counter {
-            font-size: 16px;
-            color: #6e6e73;
-        }
-
-        .progress-bar {
-            background: #e5e5ea;
-            height: 4px;
-            border-radius: 2px;
-            overflow: hidden;
-            margin-bottom: 20px;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: #007aff;
-            border-radius: 2px;
-            transition: width 0.3s ease;
-        }
-
-        .control-buttons {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-        }
-
-        .control-btn {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .pause-btn {
-            background: #ff9500;
-            color: white;
-        }
-
-        .pause-btn:hover {
-            background: #e6820e;
-        }
-
-        .stop-btn {
-            background: #ff3b30;
-            color: white;
-        }
-
-        .stop-btn:hover {
-            background: #d70015;
-        }
-
-        .completion-message {
-            font-size: 24px;
-            font-weight: 700;
-            color: #1d1d1f;
-            margin-bottom: 20px;
-        }
-
-        .completion-time {
-            font-size: 18px;
-            color: #6e6e73;
-            margin-bottom: 30px;
-        }
-
-        .restart-btn {
-            background: #007aff;
-            color: white;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 12px;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .restart-btn:hover {
-            background: #0056b3;
-        }
-
-        .celebration {
-            font-size: 48px;
-            margin-bottom: 20px;
-        }
-
-        /* Responsive styles */
-        @media (max-width: 768px) {
-            .banner-ad-container {
-                max-width: 320px;
-            }
-            
-            .banner-ad {
-                height: 50px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jaky Coja Workouts</title>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1502869963249938" crossorigin="anonymous"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:100vh;color:#1d1d1f}
+.landing-page{display:block}
+.workout-app{display:none}
+.hero{text-align:center;padding:60px 20px;max-width:800px;margin:0 auto}
+.hero-title{font-size:clamp(3rem,8vw,5rem);font-weight:900;background:linear-gradient(135deg,#fff 0%,#e8f4ff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:20px;text-shadow:0 0 30px rgba(255,255,255,0.3)}
+.hero-subtitle{font-size:1.5rem;color:rgba(255,255,255,0.9);margin-bottom:40px;font-weight:300}
+.workouts-container{max-width:1000px;margin:0 auto;padding:0 20px 80px}
+.workouts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px;margin-bottom:40px}
+.workout-card{background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);border-radius:24px;padding:40px;text-align:center;cursor:pointer;transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);position:relative;overflow:hidden;box-shadow:0 20px 40px rgba(0,0,0,0.1)}
+.workout-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#007aff,#00d4aa);transform:scaleX(0);transform-origin:left;transition:transform 0.4s ease}
+.workout-card:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 30px 60px rgba(0,0,0,0.2)}
+.workout-card:hover::before{transform:scaleX(1)}
+.workout-icon{width:80px;height:80px;border-radius:20px;background:linear-gradient(135deg,#007aff,#00d4aa);display:flex;align-items:center;justify-content:center;font-size:2.5rem;margin:0 auto 25px;transition:all 0.3s ease;position:relative;overflow:hidden}
+.workout-icon::after{content:'';position:absolute;top:50%;left:50%;width:0;height:0;background:rgba(255,255,255,0.3);border-radius:50%;transform:translate(-50%,-50%);transition:all 0.4s ease}
+.workout-card:hover .workout-icon::after{width:100px;height:100px}
+.workout-title{font-size:1.8rem;font-weight:700;color:#1d1d1f;margin-bottom:15px}
+.workout-description{font-size:1rem;color:#6e6e73;margin-bottom:20px;line-height:1.6}
+.workout-duration{display:inline-flex;align-items:center;gap:8px;background:rgba(0,122,255,0.1);color:#007aff;padding:8px 16px;border-radius:20px;font-size:0.9rem;font-weight:600}
+.banner-ad-container{width:100%;max-width:728px;margin:40px auto;padding:20px;background:rgba(255,255,255,0.9);border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,0.1)}
+.back-btn{position:fixed;top:30px;left:30px;background:rgba(255,255,255,0.9);backdrop-filter:blur(10px);border:none;border-radius:50%;width:50px;height:50px;display:none;align-items:center;justify-content:center;font-size:1.5rem;cursor:pointer;transition:all 0.3s ease;z-index:1000;box-shadow:0 10px 20px rgba(0,0,0,0.1)}
+.back-btn:hover{background:white;transform:scale(1.1)}
+.container{background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);border-radius:20px;padding:40px;max-width:400px;width:100%;text-align:center;box-shadow:0 20px 40px rgba(0,0,0,0.1);margin:40px auto}
+.interstitial-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.95);z-index:9999;display:none;justify-content:center;align-items:center;flex-direction:column}
+.interstitial-content{background:white;border-radius:15px;padding:20px;max-width:90%;max-height:90%;position:relative;box-shadow:0 20px 40px rgba(0,0,0,0.3)}
+.close-ad-btn{position:absolute;top:10px;right:15px;background:#ff3b30;color:white;border:none;border-radius:50%;width:30px;height:30px;font-size:16px;cursor:pointer;display:none}
+.close-ad-btn:hover{background:#d70015}
+.ad-countdown{position:absolute;top:10px;left:15px;background:rgba(0,0,0,0.7);color:white;padding:5px 10px;border-radius:15px;font-size:12px}
+.title{font-size:28px;font-weight:700;color:#1d1d1f;margin-bottom:30px}
+.setup-screen{display:block}
+.workout-screen{display:none}
+.completion-screen{display:none}
+.interval-selector{margin-bottom:30px}
+.interval-label{font-size:16px;color:#6e6e73;margin-bottom:15px}
+.interval-buttons{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.interval-btn{background:#f2f2f7;border:2px solid transparent;border-radius:12px;padding:12px 20px;font-size:16px;font-weight:600;color:#1d1d1f;cursor:pointer;transition:all 0.2s ease}
+.interval-btn:hover{background:#e5e5ea}
+.interval-btn.selected{background:#007aff;color:white;border-color:#007aff}
+.play-button{width:80px;height:80px;border-radius:50%;background:#007aff;border:none;color:white;font-size:24px;cursor:pointer;transition:all 0.2s ease;margin:20px auto;display:flex;align-items:center;justify-content:center}
+.play-button:hover{background:#0056b3;transform:scale(1.05)}
+.play-button:disabled{background:#c7c7cc;cursor:not-allowed;transform:none}
+.timers{display:flex;justify-content:space-between;margin-bottom:30px}
+.timer{text-align:center}
+.timer-label{font-size:14px;color:#6e6e73;margin-bottom:5px}
+.timer-value{font-size:32px;font-weight:700;color:#1d1d1f}
+.current-exercise{background:#f2f2f7;border-radius:16px;padding:30px 20px;margin-bottom:20px}
+.exercise-name{font-size:24px;font-weight:700;color:#1d1d1f;margin-bottom:10px}
+.exercise-counter{font-size:16px;color:#6e6e73}
+.progress-bar{background:#e5e5ea;height:4px;border-radius:2px;overflow:hidden;margin-bottom:20px}
+.progress-fill{height:100%;background:#007aff;border-radius:2px;transition:width 0.3s ease}
+.control-buttons{display:flex;gap:15px;justify-content:center}
+.control-btn{padding:12px 24px;border:none;border-radius:12px;font-size:16px;font-weight:600;cursor:pointer;transition:all 0.2s ease}
+.pause-btn{background:#ff9500;color:white}
+.pause-btn:hover{background:#e6820e}
+.stop-btn{background:#ff3b30;color:white}
+.stop-btn:hover{background:#d70015}
+.completion-message{font-size:24px;font-weight:700;color:#1d1d1f;margin-bottom:20px}
+.completion-time{font-size:18px;color:#6e6e73;margin-bottom:30px}
+.restart-btn{background:#007aff;color:white;padding:15px 30px;border:none;border-radius:12px;font-size:18px;font-weight:600;cursor:pointer;transition:all 0.2s ease}
+.restart-btn:hover{background:#0056b3}
+.celebration{font-size:48px;margin-bottom:20px}
+@media (max-width:768px){.banner-ad-container{max-width:320px}.hero{padding:40px 20px}.hero-title{font-size:2.5rem}}
+</style>
 </head>
 <body>
-    <div class="container">
-        <!-- Setup Screen -->
-        <div class="setup-screen" id="setupScreen">
-            <h1 class="title">Jaky Coja ABS Circuit</h1>
-            
-            <div class="interval-selector">
-                <div class="interval-label">Seleziona intervallo (secondi)</div>
-                <div class="interval-buttons">
-                    <button class="interval-btn" data-interval="10">10s</button>
-                    <button class="interval-btn" data-interval="15">15s</button>
-                    <button class="interval-btn" data-interval="20">20s</button>
-                    <button class="interval-btn" data-interval="30">30s</button>
-                    <button class="interval-btn" data-interval="45">45s</button>
-                    <button class="interval-btn" data-interval="60">60s</button>
-                </div>
-            </div>
-
-            <button class="play-button" id="startBtn" disabled>▶</button>
-        </div>
-
-        <!-- Workout Screen -->
-        <div class="workout-screen" id="workoutScreen">
-            <div class="timers">
-                <div class="timer">
-                    <div class="timer-label">Tempo Totale</div>
-                    <div class="timer-value" id="totalTime">0:00</div>
-                </div>
-                <div class="timer">
-                    <div class="timer-label">Countdown</div>
-                    <div class="timer-value" id="countdown">30</div>
-                </div>
-            </div>
-
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
-            </div>
-
-            <div class="current-exercise">
-                <div class="exercise-name" id="exerciseName">Russian Twist</div>
-                <div class="exercise-counter" id="exerciseCounter">1 / 48</div>
-            </div>
-
-            <div class="control-buttons">
-                <button class="control-btn pause-btn" id="pauseBtn">Pausa</button>
-                <button class="control-btn stop-btn" id="stopBtn">Stop</button>
-            </div>
-        </div>
-
-        <!-- Completion Screen -->
-        <div class="completion-screen" id="completionScreen">
-            <div class="celebration">🎉</div>
-            <div class="completion-message">Congratulazioni!</div>
-            <div class="completion-message">Circuito Completato!</div>
-            <div class="completion-time" id="finalTime">Tempo totale: 0:00</div>
-            <button class="restart-btn" id="restartBtn">Ricomincia</button>
-        </div>
-    </div>
-
-    <!-- Banner Ad Container -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1502869963249938"
-     crossorigin="anonymous"></script>
-	<div class="banner-ad-container">
-        <!-- Google AdSense Banner Ad -->
-        <ins class="adsbygoogle banner-ad"
-             style="display:block"
-             data-ad-client="ca-pub-1502869963249938"
-             data-ad-slot="5604773715"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
-    </div>
-	<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-	</script>
-	
-
-    <!-- Interstitial Ad Overlay -->
-    <div class="interstitial-overlay" id="interstitialOverlay">
-        <div class="interstitial-content">
-            <div class="ad-countdown" id="adCountdown">Pubblicità : 5s</div>
-            <button class="close-ad-btn" id="closeAdBtn">x—</button>
-            <!-- Google AdSense Interstitial Ad -->
-            <ins class="adsbygoogle"
-                 style="display:block; width:300px; height:250px;"
-                 data-ad-client="ca-pub-1502869963249938"
-                 data-ad-slot="8095205683"
-                 data-ad-format="auto"></ins>
-        </div>
-    </div>
-
-    <script>
-        class ABSCircuitApp {
-            constructor() {
-                this.exercises = [
-                    'Russian Twist', 'Pausa', 'Toe Touch', 'Pausa', 'Leg Raises', 'Pausa',
-                    'Butterly Sit-Up', 'Pausa', 'Crunch Inverso in Appoggio', 'Pausa',
-                    'Chiusure a Libretto', 'Pausa', 'V-Position', 'Pausa',
-                    'Sforbiciata in appoggio', 'Pausa', 'Russian Twist', 'Plank',
-                    'Toe Touch', 'Plank', 'Leg Raises', 'Plank', 'Butterly Sit-Up', 'Plank',
-                    'Crunch Inverso in Appoggio', 'Plank', 'Chiusure a Libretto', 'Plank',
-                    'V-Position', 'Plank', 'Sforbiciata in appoggio', 'Plank',
-                    'Russian Twist', 'Mountain Climbers', 'Toe Touch', 'Mountain Climbers',
-                    'Leg Raises', 'Mountain Climbers', 'Butterly Sit-Up', 'Mountain Climbers',
-                    'Crunch Inverso in Appoggio', 'Mountain Climbers', 'Chiusure a Libretto',
-                    'Mountain Climbers', 'V-Position', 'Mountain Climbers',
-                    'Sforbiciata in appoggio', 'Mountain Climbers'
-                ];
-
-                this.selectedInterval = null;
-                this.currentExercise = 0;
-                this.totalSeconds = 0;
-                this.countdownSeconds = 0;
-                this.isPaused = false;
-                this.isRunning = false;
-                this.totalTimer = null;
-                this.countdownTimer = null;
-                this.adCountdownTimer = null;
-
-                this.initializeElements();
-                this.setupEventListeners();
-                this.createAudioContext();
-                this.initializeAds();
-            }
-
-            initializeElements() {
-                this.setupScreen = document.getElementById('setupScreen');
-                this.workoutScreen = document.getElementById('workoutScreen');
-                this.completionScreen = document.getElementById('completionScreen');
-                this.startBtn = document.getElementById('startBtn');
-                this.pauseBtn = document.getElementById('pauseBtn');
-                this.stopBtn = document.getElementById('stopBtn');
-                this.restartBtn = document.getElementById('restartBtn');
-                this.totalTimeDisplay = document.getElementById('totalTime');
-                this.countdownDisplay = document.getElementById('countdown');
-                this.exerciseNameDisplay = document.getElementById('exerciseName');
-                this.exerciseCounterDisplay = document.getElementById('exerciseCounter');
-                this.progressFill = document.getElementById('progressFill');
-                this.finalTimeDisplay = document.getElementById('finalTime');
-                this.interstitialOverlay = document.getElementById('interstitialOverlay');
-                this.closeAdBtn = document.getElementById('closeAdBtn');
-                this.adCountdownDisplay = document.getElementById('adCountdown');
-            }
-
-            setupEventListeners() {
-                // Interval selection
-                document.querySelectorAll('.interval-btn').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        document.querySelectorAll('.interval-btn').forEach(b => b.classList.remove('selected'));
-                        e.target.classList.add('selected');
-                        this.selectedInterval = parseInt(e.target.dataset.interval);
-                        this.startBtn.disabled = false;
-                    });
-                });
-
-                this.startBtn.addEventListener('click', () => this.startWorkout());
-                this.pauseBtn.addEventListener('click', () => this.togglePause());
-                this.stopBtn.addEventListener('click', () => this.stopWorkout());
-                this.restartBtn.addEventListener('click', () => this.restart());
-                this.closeAdBtn.addEventListener('click', () => this.closeInterstitialAd());
-            }
-
-            initializeAds() {
-                // Initialize AdSense ads
-                try {
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                } catch (e) {
-                    console.log('AdSense not loaded yet');
-                }
-            }
-
-            createAudioContext() {
-                // Create a simple beep sound using Web Audio API
-                this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            }
-
-            playBeep() {
-                if (!this.audioContext) return;
-                
-                const oscillator = this.audioContext.createOscillator();
-                const gainNode = this.audioContext.createGain();
-                
-                oscillator.connect(gainNode);
-                gainNode.connect(this.audioContext.destination);
-                
-                oscillator.frequency.setValueAtTime(800, this.audioContext.currentTime);
-                gainNode.gain.setValueAtTime(0.3, this.audioContext.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.5);
-                
-                oscillator.start(this.audioContext.currentTime);
-                oscillator.stop(this.audioContext.currentTime + 0.5);
-            }
-
-            startWorkout() {
-                this.setupScreen.style.display = 'none';
-                this.workoutScreen.style.display = 'block';
-                
-                this.currentExercise = 0;
-                this.totalSeconds = 0;
-                this.countdownSeconds = this.selectedInterval;
-                this.isRunning = true;
-                this.isPaused = false;
-
-                this.updateDisplay();
-                this.startTimers();
-            }
-
-            startTimers() {
-                this.totalTimer = setInterval(() => {
-                    if (!this.isPaused) {
-                        this.totalSeconds++;
-                        this.updateTotalTimeDisplay();
-                    }
-                }, 1000);
-
-                this.countdownTimer = setInterval(() => {
-                    if (!this.isPaused) {
-                        this.countdownSeconds--;
-                        this.updateCountdownDisplay();
-
-                        if (this.countdownSeconds <= 0) {
-                            this.playBeep();
-                            this.nextExercise();
-                        }
-                    }
-                }, 1000);
-            }
-
-            nextExercise() {
-                this.currentExercise++;
-                
-                if (this.currentExercise >= this.exercises.length) {
-                    this.completeWorkout();
-                    return;
-                }
-
-                this.countdownSeconds = this.selectedInterval;
-                this.updateDisplay();
-            }
-
-            updateDisplay() {
-                this.exerciseNameDisplay.textContent = this.exercises[this.currentExercise];
-                this.exerciseCounterDisplay.textContent = `${this.currentExercise + 1} / ${this.exercises.length}`;
-                this.updateProgressBar();
-                this.updateCountdownDisplay();
-            }
-
-            updateTotalTimeDisplay() {
-                const minutes = Math.floor(this.totalSeconds / 60);
-                const seconds = this.totalSeconds % 60;
-                this.totalTimeDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-            }
-
-            updateCountdownDisplay() {
-                this.countdownDisplay.textContent = this.countdownSeconds;
-            }
-
-            updateProgressBar() {
-                const progress = ((this.currentExercise + 1) / this.exercises.length) * 100;
-                this.progressFill.style.width = `${progress}%`;
-            }
-
-            togglePause() {
-                this.isPaused = !this.isPaused;
-                this.pauseBtn.textContent = this.isPaused ? 'Riprendi' : 'Pausa';
-            }
-
-            stopWorkout() {
-                this.isRunning = false;
-                clearInterval(this.totalTimer);
-                clearInterval(this.countdownTimer);
-                this.restart();
-            }
-
-            completeWorkout() {
-                this.isRunning = false;
-                clearInterval(this.totalTimer);
-                clearInterval(this.countdownTimer);
-
-                this.workoutScreen.style.display = 'none';
-                this.completionScreen.style.display = 'block';
-
-                const minutes = Math.floor(this.totalSeconds / 60);
-                const seconds = this.totalSeconds % 60;
-                this.finalTimeDisplay.textContent = `Tempo totale: ${minutes}:${seconds.toString().padStart(2, '0')}`;
-
-                // Show interstitial ad after 5 seconds
-                setTimeout(() => {
-                    this.showInterstitialAd();
-                }, 5000);
-            }
-
-            showInterstitialAd() {
-                this.interstitialOverlay.style.display = 'flex';
-                
-                // Initialize interstitial ad
-                try {
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                } catch (e) {
-                    console.log('AdSense interstitial not loaded');
-                }
-
-                // Start countdown for close button
-                let adCountdown = 5;
-                this.adCountdownDisplay.textContent = `Pubblicità : ${adCountdown}s`;
-                
-                this.adCountdownTimer = setInterval(() => {
-                    adCountdown--;
-                    this.adCountdownDisplay.textContent = `Pubblicità : ${adCountdown}s`;
-                    
-                    if (adCountdown <= 0) {
-                        clearInterval(this.adCountdownTimer);
-                        this.closeAdBtn.style.display = 'block';
-                        this.adCountdownDisplay.textContent = 'Puoi chiudere la Pubblicità ';
-                    }
-                }, 1000);
-            }
-
-            closeInterstitialAd() {
-                this.interstitialOverlay.style.display = 'none';
-                this.closeAdBtn.style.display = 'none';
-                if (this.adCountdownTimer) {
-                    clearInterval(this.adCountdownTimer);
-                }
-            }
-
-            restart() {
-                this.setupScreen.style.display = 'block';
-                this.workoutScreen.style.display = 'none';
-                this.completionScreen.style.display = 'none';
-                
-                this.selectedInterval = null;
-                this.startBtn.disabled = true;
-                this.pauseBtn.textContent = 'Pausa';
-                
-                document.querySelectorAll('.interval-btn').forEach(btn => {
-                    btn.classList.remove('selected');
-                });
-
-                if (this.totalTimer) clearInterval(this.totalTimer);
-                if (this.countdownTimer) clearInterval(this.countdownTimer);
-                if (this.adCountdownTimer) clearInterval(this.adCountdownTimer);
-                
-                // Close any open ads
-                this.closeInterstitialAd();
-            }
-        }
-
-        // Initialize the app when the page loads
-        document.addEventListener('DOMContentLoaded', () => {
-            new ABSCircuitApp();
-        });
-
-        // Initialize AdSense when the page loads
-        window.addEventListener('load', () => {
-            try {
-                (adsbygoogle = window.adsbygoogle || []).push({});
-            } catch (e) {
-                console.log('AdSense initialization failed');
-            }
-        });
-    </script>
+<div class="landing-page" id="landingPage">
+<div class="hero">
+<h1 class="hero-title">Jaky Coja<br>Workouts</h1>
+<p class="hero-subtitle">Trasforma il tuo corpo, supera i tuoi limiti</p>
+</div>
+<div class="workouts-container">
+<div class="workouts-grid">
+<div class="workout-card" onclick="startABSWorkout()">
+<div class="workout-icon">ðŸ’ª</div>
+<h3 class="workout-title">ABS Circuit</h3>
+<p class="workout-description">Allenamento completo per addominali con esercizi mirati per scolpire il core</p>
+<div class="workout-duration">
+â±ï¸ <span>8-48 min</span>
+</div>
+</div>
+</div>
+</div>
+<div class="banner-ad-container">
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1502869963249938" data-ad-slot="5604773715" data-ad-format="auto" data-full-width-responsive="true"></ins>
+</div>
+</div>
+<button class="back-btn" id="backBtn" onclick="goBackToLanding()">â†</button>
+<div class="workout-app" id="workoutApp">
+<div class="container">
+<div class="setup-screen" id="setupScreen">
+<h1 class="title">Jaky Coja ABS Circuit</h1>
+<div class="interval-selector">
+<div class="interval-label">Seleziona intervallo (secondi)</div>
+<div class="interval-buttons">
+<button class="interval-btn" data-interval="10">10s</button>
+<button class="interval-btn" data-interval="15">15s</button>
+<button class="interval-btn" data-interval="20">20s</button>
+<button class="interval-btn" data-interval="30">30s</button>
+<button class="interval-btn" data-interval="45">45s</button>
+<button class="interval-btn" data-interval="60">60s</button>
+</div>
+</div>
+<button class="play-button" id="startBtn" disabled>â–¶</button>
+</div>
+<div class="workout-screen" id="workoutScreen">
+<div class="timers">
+<div class="timer">
+<div class="timer-label">Tempo Totale</div>
+<div class="timer-value" id="totalTime">0:00</div>
+</div>
+<div class="timer">
+<div class="timer-label">Countdown</div>
+<div class="timer-value" id="countdown">30</div>
+</div>
+</div>
+<div class="progress-bar">
+<div class="progress-fill" id="progressFill"></div>
+</div>
+<div class="current-exercise">
+<div class="exercise-name" id="exerciseName">Russian Twist</div>
+<div class="exercise-counter" id="exerciseCounter">1 / 48</div>
+</div>
+<div class="control-buttons">
+<button class="control-btn pause-btn" id="pauseBtn">Pausa</button>
+<button class="control-btn stop-btn" id="stopBtn">Stop</button>
+</div>
+</div>
+<div class="completion-screen" id="completionScreen">
+<div class="celebration">ðŸŽ‰</div>
+<div class="completion-message">Congratulazioni!</div>
+<div class="completion-message">Circuito Completato!</div>
+<div class="completion-time" id="finalTime">Tempo totale: 0:00</div>
+<button class="restart-btn" id="restartBtn">Ricomincia</button>
+</div>
+</div>
+</div>
+<div class="interstitial-overlay" id="interstitialOverlay">
+<div class="interstitial-content">
+<div class="ad-countdown" id="adCountdown">PubblicitÃ : 5s</div>
+<button class="close-ad-btn" id="closeAdBtn">Ã—</button>
+<ins class="adsbygoogle" style="display:block;width:320px;height:250px" data-ad-client="ca-pub-1502869963249938" data-ad-slot="8095205683" data-ad-format="auto" data-full-width-responsive="true"></ins>
+</div>
+</div>
+<script>
+function startABSWorkout(){document.getElementById('landingPage').style.display='none';document.getElementById('workoutApp').style.display='block';document.getElementById('backBtn').style.display='flex'}
+function goBackToLanding(){document.getElementById('landingPage').style.display='block';document.getElementById('workoutApp').style.display='none';document.getElementById('backBtn').style.display='none';if(window.absApp){window.absApp.restart()}}
+class ABSCircuitApp{constructor(){this.exercises=['Russian Twist','Pausa','Toe Touch','Pausa','Leg Raises','Pausa','Butterly Sit-Up','Pausa','Crunch Inverso in Appoggio','Pausa','Chiusure a Libretto','Pausa','V-Position','Pausa','Sforbiciata in appoggio','Pausa','Russian Twist','Plank','Toe Touch','Plank','Leg Raises','Plank','Butterly Sit-Up','Plank','Crunch Inverso in Appoggio','Plank','Chiusure a Libretto','Plank','V-Position','Plank','Sforbiciata in appoggio','Plank','Russian Twist','Mountain Climbers','Toe Touch','Mountain Climbers','Leg Raises','Mountain Climbers','Butterly Sit-Up','Mountain Climbers','Crunch Inverso in Appoggio','Mountain Climbers','Chiusure a Libretto','Mountain Climbers','V-Position','Mountain Climbers','Sforbiciata in appoggio','Mountain Climbers'];this.selectedInterval=null;this.currentExercise=0;this.totalSeconds=0;this.countdownSeconds=0;this.isPaused=false;this.isRunning=false;this.totalTimer=null;this.countdownTimer=null;this.adCountdownTimer=null;this.initializeElements();this.setupEventListeners();this.createAudioContext();this.initializeAds()}initializeElements(){this.setupScreen=document.getElementById('setupScreen');this.workoutScreen=document.getElementById('workoutScreen');this.completionScreen=document.getElementById('completionScreen');this.startBtn=document.getElementById('startBtn');this.pauseBtn=document.getElementById('pauseBtn');this.stopBtn=document.getElementById('stopBtn');this.restartBtn=document.getElementById('restartBtn');this.totalTimeDisplay=document.getElementById('totalTime');this.countdownDisplay=document.getElementById('countdown');this.exerciseNameDisplay=document.getElementById('exerciseName');this.exerciseCounterDisplay=document.getElementById('exerciseCounter');this.progressFill=document.getElementById('progressFill');this.finalTimeDisplay=document.getElementById('finalTime');this.interstitialOverlay=document.getElementById('interstitialOverlay');this.closeAdBtn=document.getElementById('closeAdBtn');this.adCountdownDisplay=document.getElementById('adCountdown')}setupEventListeners(){document.querySelectorAll('.interval-btn').forEach(btn=>{btn.addEventListener('click',(e)=>{document.querySelectorAll('.interval-btn').forEach(b=>b.classList.remove('selected'));e.target.classList.add('selected');this.selectedInterval=parseInt(e.target.dataset.interval);this.startBtn.disabled=false})});this.startBtn.addEventListener('click',()=>this.startWorkout());this.pauseBtn.addEventListener('click',()=>this.togglePause());this.stopBtn.addEventListener('click',()=>this.stopWorkout());this.restartBtn.addEventListener('click',()=>this.restart());this.closeAdBtn.addEventListener('click',()=>this.closeInterstitialAd())}initializeAds(){try{(adsbygoogle=window.adsbygoogle||[]).push({})}catch(e){}}createAudioContext(){this.audioContext=new (window.AudioContext||window.webkitAudioContext)()}playBeep(){if(!this.audioContext)return;const oscillator=this.audioContext.createOscillator();const gainNode=this.audioContext.createGain();oscillator.connect(gainNode);gainNode.connect(this.audioContext.destination);oscillator.frequency.setValueAtTime(800,this.audioContext.currentTime);gainNode.gain.setValueAtTime(0.3,this.audioContext.currentTime);gainNode.gain.exponentialRampToValueAtTime(0.01,this.audioContext.currentTime+0.5);oscillator.start(this.audioContext.currentTime);oscillator.stop(this.audioContext.currentTime+0.5)}startWorkout(){this.setupScreen.style.display='none';this.workoutScreen.style.display='block';this.currentExercise=0;this.totalSeconds=0;this.countdownSeconds=this.selectedInterval;this.isRunning=true;this.isPaused=false;this.updateDisplay();this.startTimers()}startTimers(){this.totalTimer=setInterval(()=>{if(!this.isPaused){this.totalSeconds++;this.updateTotalTimeDisplay()}},1000);this.countdownTimer=setInterval(()=>{if(!this.isPaused){this.countdownSeconds--;this.updateCountdownDisplay();if(this.countdownSeconds<=0){this.playBeep();this.nextExercise()}}},1000)}nextExercise(){this.currentExercise++;if(this.currentExercise>=this.exercises.length){this.completeWorkout();return}this.countdownSeconds=this.selectedInterval;this.updateDisplay()}updateDisplay(){this.exerciseNameDisplay.textContent=this.exercises[this.currentExercise];this.exerciseCounterDisplay.textContent=`${this.currentExercise+1} / ${this.exercises.length}`;this.updateProgressBar();this.updateCountdownDisplay()}updateTotalTimeDisplay(){const minutes=Math.floor(this.totalSeconds/60);const seconds=this.totalSeconds%60;this.totalTimeDisplay.textContent=`${minutes}:${seconds.toString().padStart(2,'0')}`}updateCountdownDisplay(){this.countdownDisplay.textContent=this.countdownSeconds}updateProgressBar(){const progress=((this.currentExercise+1)/this.exercises.length)*100;this.progressFill.style.width=`${progress}%`}togglePause(){this.isPaused=!this.isPaused;this.pauseBtn.textContent=this.isPaused?'Riprendi':'Pausa'}stopWorkout(){this.isRunning=false;clearInterval(this.totalTimer);clearInterval(this.countdownTimer);this.restart()}completeWorkout(){this.isRunning=false;clearInterval(this.totalTimer);clearInterval(this.countdownTimer);this.workoutScreen.style.display='none';this.completionScreen.style.display='block';const minutes=Math.floor(this.totalSeconds/60);const seconds=this.totalSeconds%60;this.finalTimeDisplay.textContent=`Tempo totale: ${minutes}:${seconds.toString().padStart(2,'0')}`;setTimeout(()=>{this.showInterstitialAd()},5000)}showInterstitialAd(){this.interstitialOverlay.style.display='flex';try{(adsbygoogle=window.adsbygoogle||[]).push({})}catch(e){}let adCountdown=5;this.adCountdownDisplay.textContent=`PubblicitÃ : ${adCountdown}s`;this.adCountdownTimer=setInterval(()=>{adCountdown--;this.adCountdownDisplay.textContent=`PubblicitÃ : ${adCountdown}s`;if(adCountdown<=0){clearInterval(this.adCountdownTimer);this.closeAdBtn.style.display='block';this.adCountdownDisplay.textContent='Puoi chiudere la pubblicitÃ '}},1000)}closeInterstitialAd(){this.interstitialOverlay.style.display='none';this.closeAdBtn.style.display='none';if(this.adCountdownTimer){clearInterval(this.adCountdownTimer)}}restart(){this.setupScreen.style.display='block';this.workoutScreen.style.display='none';this.completionScreen.style.display='none';this.selectedInterval=null;this.startBtn.disabled=true;this.pauseBtn.textContent='Pausa';document.querySelectorAll('.interval-btn').forEach(btn=>{btn.classList.remove('selected')});if(this.totalTimer)clearInterval(this.totalTimer);if(this.countdownTimer)clearInterval(this.countdownTimer);if(this.adCountdownTimer)clearInterval(this.adCountdownTimer);this.closeInterstitialAd()}}
+document.addEventListener('DOMContentLoaded',()=>{window.absApp=new ABSCircuitApp()});
+window.addEventListener('load',()=>{try{(adsbygoogle=window.adsbygoogle||[]).push({})}catch(e){}});
+</script>
 </body>
 </html>
