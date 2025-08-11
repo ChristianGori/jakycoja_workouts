@@ -20,6 +20,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .workout-card:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 30px 60px rgba(0,0,0,0.2)}
 .workout-card:hover::before{transform:scaleX(1)}
 .workout-icon{width:80px;height:80px;border-radius:20px;background:linear-gradient(135deg,#007aff,#00d4aa);display:flex;align-items:center;justify-content:center;font-size:2.5rem;margin:0 auto 25px;transition:all 0.3s ease;position:relative;overflow:hidden}
+.workout-icon img{width:50px;height:50px;object-fit:contain;z-index:2}
 .workout-icon::after{content:'';position:absolute;top:50%;left:50%;width:0;height:0;background:rgba(255,255,255,0.3);border-radius:50%;transform:translate(-50%,-50%);transition:all 0.4s ease}
 .workout-card:hover .workout-icon::after{width:100px;height:100px}
 .workout-title{font-size:1.8rem;font-weight:700;color:#1d1d1f;margin-bottom:15px}
@@ -67,7 +68,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .restart-btn{background:#007aff;color:white;padding:15px 30px;border:none;border-radius:12px;font-size:18px;font-weight:600;cursor:pointer;transition:all 0.2s ease}
 .restart-btn:hover{background:#0056b3}
 .celebration{font-size:48px;margin-bottom:20px}
-@media (max-width:768px){.banner-ad-container{max-width:320px}.hero{padding:40px 20px}.hero-title{font-size:2.5rem}}
+@media (max-width:768px){.-container{max-width:320px}.hero{padding:40px 20px}.hero-title{font-size:2.5rem}}
 </style>
 </head>
 <body>
@@ -79,7 +80,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 <div class="workouts-container">
 <div class="workouts-grid">
 <div class="workout-card" onclick="startABSWorkout()">
-<div class="workout-icon">💪</div>
+<div class="workout-icon">
+  <img src="abs.png" alt="ABS Circuit">
+</div>
 <h3 class="workout-title">ABS Circuit</h3>
 <p class="workout-description">Allenamento completo per addominali con esercizi mirati per scolpire il core</p>
 <div class="workout-duration">
@@ -87,9 +90,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 </div>
 </div>
 </div>
-</div>
-<div class="banner-ad-container">
-<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1502869963249938" data-ad-slot="5604773715" data-ad-format="auto" data-full-width-responsive="true"></ins>
 </div>
 </div>
 <button class="back-btn" id="backBtn" onclick="goBackToLanding()">←</button>
@@ -142,13 +142,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 </div>
 </div>
 </div>
-<div class="interstitial-overlay" id="interstitialOverlay">
-<div class="interstitial-content">
-<div class="ad-countdown" id="adCountdown">Pubblicità: 5s</div>
-<button class="close-ad-btn" id="closeAdBtn">×</button>
-<ins class="adsbygoogle" style="display:block;width:320px;height:250px" data-ad-client="ca-pub-1502869963249938" data-ad-slot="8095205683" data-ad-format="auto" data-full-width-responsive="true"></ins>
-</div>
-</div>
 <script>
 function startABSWorkout(){document.getElementById('landingPage').style.display='none';document.getElementById('workoutApp').style.display='block';document.getElementById('backBtn').style.display='flex'}
 function goBackToLanding(){document.getElementById('landingPage').style.display='block';document.getElementById('workoutApp').style.display='none';document.getElementById('backBtn').style.display='none';if(window.absApp){window.absApp.restart()}}
@@ -158,4 +151,5 @@ window.addEventListener('load',()=>{try{(adsbygoogle=window.adsbygoogle||[]).pus
 </script>
 </body>
 </html>
+
 
