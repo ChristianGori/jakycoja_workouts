@@ -472,41 +472,25 @@
             }
 
             createAudioContext() {
-                try {
-                    this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                    // Resume audio context on user interaction
-                    if (this.audioContext.state === 'suspended') {
-                        document.addEventListener('click', () => {
-                            this.audioContext.resume();
-                        }, { once: true });
-                    }
-                } catch (e) {
-                    console.warn('AudioContext not supported');
-                }
+                // Create a simple beep sound using Web Audio API
+                this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
             }
 
             playBeep() {
-                if (!this.audioContext || this.audioContext.state !== 'running') return;
+                if (!this.audioContext) return;
                 
-                try {
-                    const oscillator = this.audioContext.createOscillator();
-                    const gainNode = this.audioContext.createGain();
-                    
-                    oscillator.connect(gainNode);
-                    gainNode.connect(this.audioContext.destination);
-                    
-                    oscillator.frequency.setValueAtTime(800, this.audioContext.currentTime);
-                    oscillator.type = 'square';
-                    
-                    gainNode.gain.setValueAtTime(0, this.audioContext.currentTime);
-                    gainNode.gain.linearRampToValueAtTime(0.3, this.audioContext.currentTime + 0.01);
-                    gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.3);
-                    
-                    oscillator.start(this.audioContext.currentTime);
-                    oscillator.stop(this.audioContext.currentTime + 0.3);
-                } catch (e) {
-                    console.warn('Audio playback failed');
-                }
+                const oscillator = this.audioContext.createOscillator();
+                const gainNode = this.audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(this.audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(800, this.audioContext.currentTime);
+                gainNode.gain.setValueAtTime(0.3, this.audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.5);
+                
+                oscillator.start(this.audioContext.currentTime);
+                oscillator.stop(this.audioContext.currentTime + 0.5);
             }
 
             startWorkout() {
@@ -678,4 +662,5 @@
         });
     </script>
 </body>
+
 </html>
