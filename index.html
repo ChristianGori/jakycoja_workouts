@@ -13,9 +13,24 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .hero{text-align:center;padding:60px 20px;max-width:800px;margin:0 auto}
 .hero-title{font-size:clamp(3rem,8vw,5rem);font-weight:900;background:linear-gradient(135deg,#fff 0%,#e8f4ff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:20px;text-shadow:0 0 30px rgba(255,255,255,0.3)}
 .hero-subtitle{font-size:1.5rem;color:rgba(255,255,255,0.9);margin-bottom:40px;font-weight:300}
+
+/* Filtri */
+.filters-container{max-width:1000px;margin:0 auto;padding:0 20px 30px}
+.filters-section{background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);border-radius:20px;padding:25px;margin-bottom:30px;box-shadow:0 10px 30px rgba(0,0,0,0.1)}
+.filters-title{font-size:1.2rem;font-weight:700;color:#1d1d1f;margin-bottom:15px}
+.filter-options{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.filter-btn{background:#f2f2f7;border:2px solid transparent;border-radius:12px;padding:10px 18px;font-size:14px;font-weight:600;color:#1d1d1f;cursor:pointer;transition:all 0.3s ease;display:flex;align-items:center;gap:8px}
+.filter-btn:hover{background:#e5e5ea;transform:translateY(-2px)}
+.filter-btn.active{background:#007aff;color:white;border-color:#007aff}
+.filter-btn.all{background:linear-gradient(135deg,#007aff,#00d4aa);color:white;font-weight:700}
+.filter-btn.all.active{background:linear-gradient(135deg,#0056b3,#00b894)}
+.clear-filters{background:#ff3b30;color:white;border:none;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s ease;margin-left:10px}
+.clear-filters:hover{background:#d70015}
+
 .workouts-container{max-width:1000px;margin:0 auto;padding:0 20px 80px}
 .workouts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px;margin-bottom:40px}
 .workout-card{background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);border-radius:24px;padding:40px;text-align:center;cursor:pointer;transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);position:relative;overflow:hidden;box-shadow:0 20px 40px rgba(0,0,0,0.1)}
+.workout-card.hidden{display:none}
 .workout-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#007aff,#00d4aa);transform:scaleX(0);transform-origin:left;transition:transform 0.4s ease}
 .workout-card:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 30px 60px rgba(0,0,0,0.2)}
 .workout-card:hover::before{transform:scaleX(1)}
@@ -68,7 +83,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .restart-btn{background:#007aff;color:white;padding:15px 30px;border:none;border-radius:12px;font-size:18px;font-weight:600;cursor:pointer;transition:all 0.2s ease}
 .restart-btn:hover{background:#0056b3}
 .celebration{font-size:48px;margin-bottom:20px}
-@media (max-width:768px){.container{max-width:320px;margin:120px auto 40px}.hero{padding:40px 20px}.hero-title{font-size:2.5rem}}
+@media (max-width:768px){.container{max-width:320px;margin:120px auto 40px}.hero{padding:40px 20px}.hero-title{font-size:2.5rem}.filter-options{justify-content:center}.filters-section{padding:20px}}
 </style>
 </head>
 <body>
@@ -77,46 +92,159 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 <h1 class="hero-title">Jaky Coja<br>Workouts</h1>
 <p class="hero-subtitle">Trasforma il tuo corpo, supera i tuoi limiti</p>
 </div>
+
+<div class="filters-container">
+<div class="filters-section">
+<h3 class="filters-title">Filtra per categoria</h3>
+<div class="filter-options">
+<button class="filter-btn all active" data-category="all">
+Tutti i workout
+</button>
+<button class="filter-btn" data-category="abs">
+Addominali
+</button>
+<button class="filter-btn" data-category="arms">
+Braccia
+</button>
+<button class="clear-filters" onclick="clearAllFilters()">Reset</button>
+</div>
+</div>
+</div>
+
 <div class="workouts-container">
 <div class="workouts-grid">
-<div class="workout-card" onclick="startABSWorkout()">
+<div class="workout-card" data-category="abs" onclick="startABSWorkout()">
 <div class="workout-icon">
   <img src="abs.png" alt="ABS Circuit">
 </div>
 <h3 class="workout-title">ABS Circuit</h3>
 <p class="workout-description">Allenamento completo per addominali con esercizi mirati per scolpire il core</p>
 <div class="workout-duration">
-⏱️ <span>8-48 min</span>
+â±ï¸ <span>8-48 min</span>
 </div>
 </div>
-<div class="workout-card" onclick="startShortABSWorkout()">
+<div class="workout-card" data-category="abs" onclick="startShortABSWorkout()">
 <div class="workout-icon">
   <img src="abs.png" alt="ABS Circuit">
 </div>
 <h3 class="workout-title">Short ABS Circuit</h3>
 <p class="workout-description">Allenamento veloce per scolpire il core</p>
 <div class="workout-duration">
-⏱️ <span>5 min</span>
+â±ï¸ <span>5 min</span>
 </div>
 </div>
-<div class="workout-card" onclick="startPushUpChallenge()">
+<div class="workout-card" data-category="arms" onclick="startPushUpChallenge()">
 <div class="workout-icon">
   <img src="arms.png" alt="ABS Circuit">
 </div>
 <h3 class="workout-title">Push Up Challenge</h3>
 <p class="workout-description">100 varianti di piegamenti da terminare nel minor tempo possibile</p>
 <div class="workout-duration">
-⏱️ <span>3-8 min</span>
+â±ï¸ <span>3-8 min</span>
 </div>
 </div>
 </div>
 </div>
 </div>
 <script>
+// Variabili globali per i filtri
+let activeFilters = new Set(['all']);
+
+// Funzioni per i workout esistenti
 function startABSWorkout(){window.location.href='abs-workout.html'}
 function startShortABSWorkout(){window.location.href='short-abs-workout.html'}
 function startPushUpChallenge(){window.location.href='push-up-challenge.html'}
 function goBackToLanding(){document.getElementById('landingPage').style.display='block';document.getElementById('workoutApp').style.display='none';document.getElementById('backBtn').style.display='none';if(window.absApp){window.absApp.restart()}}
+
+// Sistema di filtri
+function initializeFilters() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const category = this.dataset.category;
+            toggleFilter(category, this);
+        });
+    });
+}
+
+function toggleFilter(category, buttonElement) {
+    if (category === 'all') {
+        // Se clicchiamo "Tutti", deselezioniamo tutti gli altri filtri
+        activeFilters.clear();
+        activeFilters.add('all');
+        updateFilterButtons();
+    } else {
+        // Se clicchiamo su una categoria specifica
+        if (activeFilters.has('all')) {
+            activeFilters.delete('all');
+        }
+        
+        if (activeFilters.has(category)) {
+            activeFilters.delete(category);
+        } else {
+            activeFilters.add(category);
+        }
+        
+        // Se non ci sono filtri attivi, riattiva "Tutti"
+        if (activeFilters.size === 0) {
+            activeFilters.add('all');
+        }
+        
+        updateFilterButtons();
+    }
+    
+    filterWorkouts();
+}
+
+function updateFilterButtons() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    
+    filterButtons.forEach(button => {
+        const category = button.dataset.category;
+        if (activeFilters.has(category)) {
+            button.classList.add('active');
+        } else {
+            button.classList.remove('active');
+        }
+    });
+}
+
+function filterWorkouts() {
+    const workoutCards = document.querySelectorAll('.workout-card');
+    
+    workoutCards.forEach(card => {
+        const cardCategory = card.dataset.category;
+        
+        if (activeFilters.has('all') || activeFilters.has(cardCategory)) {
+            card.classList.remove('hidden');
+            // Animazione di apparizione
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, 50);
+        } else {
+            card.classList.add('hidden');
+        }
+    });
+}
+
+function clearAllFilters() {
+    activeFilters.clear();
+    activeFilters.add('all');
+    updateFilterButtons();
+    filterWorkouts();
+}
+
+// Inizializzazione
+document.addEventListener('DOMContentLoaded', function() {
+    initializeFilters();
+    filterWorkouts(); // Mostra tutti i workout inizialmente
+});
+
 window.addEventListener('load',()=>{try{(adsbygoogle=window.adsbygoogle||[]).push({})}catch(e){}});
 </script>
 </body>
