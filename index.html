@@ -99,12 +99,23 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 ⏱️ <span>5 min</span>
 </div>
 </div>
+<div class="workout-card" onclick="startPushUpChallenge()">
+<div class="workout-icon">
+  <img src="arms.png" alt="ABS Circuit">
+</div>
+<h3 class="workout-title">Push Up Challenge</h3>
+<p class="workout-description">100 varianti di piegamenti da terminare nel minor tempo possibile</p>
+<div class="workout-duration">
+⏱️ <span>3-8 min</span>
+</div>
+</div>
 </div>
 </div>
 </div>
 <script>
 function startABSWorkout(){window.location.href='abs-workout.html'}
 function startShortABSWorkout(){window.location.href='short-abs-workout.html'}
+function startPushUpChallenge(){window.location.href='push-up-challenge.html'}
 function goBackToLanding(){document.getElementById('landingPage').style.display='block';document.getElementById('workoutApp').style.display='none';document.getElementById('backBtn').style.display='none';if(window.absApp){window.absApp.restart()}}
 window.addEventListener('load',()=>{try{(adsbygoogle=window.adsbygoogle||[]).push({})}catch(e){}});
 </script>
