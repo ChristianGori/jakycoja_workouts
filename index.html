@@ -143,6 +143,16 @@ Braccia
 ⏱️ <span>3-8 min</span>
 </div>
 </div>
+<div class="workout-card" data-category="arms" onclick="startExtremePushUpChallenge()">
+<div class="workout-icon">
+  <img src="arms.png" alt="ABS Circuit">
+</div>
+<h3 class="workout-title">Extreme Push Up Challenge</h3>
+<p class="workout-description">Esegui 210 push-ups nel minor tempo possibile.</p>
+<div class="workout-duration">
+⏱️ <span>15-25 min</span>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -154,6 +164,7 @@ let activeFilters = new Set(['all']);
 function startABSWorkout(){window.location.href='abs-workout.html'}
 function startShortABSWorkout(){window.location.href='short-abs-workout.html'}
 function startPushUpChallenge(){window.location.href='push-up-challenge.html'}
+function startExtremePushUpChallenge(){window.location.href='extreme-pushup-challenge.html'}
 function goBackToLanding(){document.getElementById('landingPage').style.display='block';document.getElementById('workoutApp').style.display='none';document.getElementById('backBtn').style.display='none';if(window.absApp){window.absApp.restart()}}
 
 // Sistema di filtri
@@ -249,4 +260,5 @@ window.addEventListener('load',()=>{try{(adsbygoogle=window.adsbygoogle||[]).pus
 </script>
 </body>
 </html>
+
 
